@@ -8,15 +8,19 @@ public class InputManager : MonoBehaviour
     private PlayerMotor motor;
     private PlayerLook look;
 
+    private PlayerInteract interact;
+
     void Awake()
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        interact = GetComponentInChildren<PlayerInteract>();
 
         onFoot.Jump.performed += ctx => motor.Jump();
         onFoot.ToggleFly.performed += ctx => motor.ToggleFly();
+        onFoot.Interact.performed += ctx => interact.DoInteract();
     }
 
     void OnEnable()
