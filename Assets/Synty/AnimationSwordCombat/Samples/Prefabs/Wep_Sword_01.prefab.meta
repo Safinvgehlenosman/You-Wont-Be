@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f706538f95bea8d46836f19e3bcff2d0
+timeCreated: 1582595232
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291806
+  packageName: Synty ANIMATION - Sword Combat
+  packageVersion: 1.0.1
+  assetPath: Assets/__Download/Synty/AnimationSwordCombat/Samples/Prefabs/Wep_Sword_01.prefab
+  uploadId: 686788
