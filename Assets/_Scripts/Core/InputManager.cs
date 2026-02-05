@@ -19,6 +19,8 @@ public class InputManager : MonoBehaviour
 
         // Jump callback
         onFoot.Jump.performed += ctx => motor.Jump();
+
+        onFoot.ToggleFly.performed += ctx => motor.ToggleFly();
         
         // Crouch callback (optional, we will add logic later)
         // onFoot.Crouch.performed += ctx => motor.Crouch();
