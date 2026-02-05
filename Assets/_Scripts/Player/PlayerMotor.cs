@@ -22,10 +22,6 @@ public class PlayerMotor : MonoBehaviour
         if (anim == null)
         {
             anim = GetComponentInChildren<Animator>();
-            if (anim != null) 
-                Debug.Log("<color=green>Motor:</color> Successfully found Animator on child: " + anim.gameObject.name);
-            else 
-                Debug.LogError("<color=red>Motor:</color> Failed to find Animator in children!");
         }
     }
 
@@ -39,7 +35,6 @@ public class PlayerMotor : MonoBehaviour
     {
         isFlying = !isFlying;
         playerVelocity = Vector3.zero;
-        Debug.Log("<color=yellow>Motor:</color> Flying Toggled: " + isFlying);
     }
 
     public void ProcessMove(Vector2 input)
@@ -54,10 +49,6 @@ public class PlayerMotor : MonoBehaviour
             // 0.1f is the internal damping time; Time.deltaTime keeps it frame-rate independent
             anim.SetFloat("MoveX", currentInputVector.x, 0.1f, Time.deltaTime);
             anim.SetFloat("MoveY", currentInputVector.y, 0.1f, Time.deltaTime);
-        }
-        else
-        {
-            Debug.LogWarning("Motor: Attempting to move but 'anim' is NULL!");
         }
 
         // 2. MOVEMENT LOGIC (Uses smoothed values for character weight)
@@ -87,7 +78,6 @@ public class PlayerMotor : MonoBehaviour
         if (isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(1.5f * -2f * gravity);
-            Debug.Log("<color=magenta>Motor:</color> Jump Executed");
         }
     }
 }

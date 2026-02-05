@@ -36,13 +36,6 @@ public class InputManager : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveInput = onFoot.Movement.ReadValue<Vector2>();
-        
-        // DEBUG: See if the keys are actually being registered
-        if (moveInput.magnitude > 0.01f)
-        {
-            Debug.Log($"<color=white>InputManager:</color> Read WASD: {moveInput}");
-        }
-
         motor.ProcessMove(moveInput);
     }
 
