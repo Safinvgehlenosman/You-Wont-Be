@@ -13,19 +13,13 @@ public class InteractableBox : MonoBehaviour, IInteractable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        // Find the player's hold point
-        GameObject playerHoldPoint = GameObject.Find("HoldPoint");
-        if (playerHoldPoint != null)
-        {
-            holdPoint = playerHoldPoint.transform;
-        }
     }
 
-    public void Interact()
+    public void Interact(IItemHoldPointProvider interactor)
     {
         if (!isBeingHeld)
         {
-            PickUp();
+            PickUp(interactor);
         }
         else
         {
@@ -33,8 +27,15 @@ public class InteractableBox : MonoBehaviour, IInteractable
         }
     }
 
-    void PickUp()
+    void PickUp(IItemHoldPointProvider interactor)
     {
+        if (interactor == null || interactor.HoldPoint == null)
+        {
+            Debug.LogWarning("InteractableBox: No hold point available on interactor.");
+            return;
+        }
+
+        holdPoint = interactor.HoldPoint;
         isBeingHeld = true;
         rb.useGravity = false;
         rb.isKinematic = true; 

@@ -3,9 +3,31 @@ using UnityEngine;
 public class PlayerLook : MonoBehaviour
 {
     public Camera cam;
+    private InputManager inputManager;
     private float xRotation = 0f;
     public float xSensitivity = 30f;
     public float ySensitivity = 30f;
+
+    void OnEnable()
+    {
+        if (inputManager == null)
+        {
+            inputManager = GetComponent<InputManager>();
+        }
+
+        if (inputManager != null)
+        {
+            inputManager.LookInput += ProcessLook;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (inputManager != null)
+        {
+            inputManager.LookInput -= ProcessLook;
+        }
+    }
 
     public void ProcessLook(Vector2 input)
     {

@@ -1,30 +1,36 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
     private PlayerInput.OnFootActions onFoot;
-    private PlayerMotor motor;
-    private PlayerLook look;
+    [SerializeField] private bool isLocalPlayer = true;
 
-    private PlayerInteract interact;
+    public event Action<Vector2> MoveInput;
+    public event Action<Vector2> LookInput;
+    public event Action JumpPressed;
+    public event Action ToggleFlyPressed;
+    public event Action InteractPressed;
 
     void Awake()
     {
         playerInput = new PlayerInput();
         onFoot = playerInput.OnFoot;
-        motor = GetComponent<PlayerMotor>();
-        look = GetComponent<PlayerLook>();
-        interact = GetComponentInChildren<PlayerInteract>();
 
-        onFoot.Jump.performed += ctx => motor.Jump();
-        onFoot.ToggleFly.performed += ctx => motor.ToggleFly();
-        onFoot.Interact.performed += ctx => interact.DoInteract();
+        onFoot.Jump.performed += ctx => JumpPressed?.Invoke();
+        onFoot.ToggleFly.performed += ctx => ToggleFlyPressed?.Invoke();
+        onFoot.Interact.performed += ctx => InteractPressed?.Invoke();
     }
 
     void OnEnable()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         onFoot.Enable();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -32,6 +38,11 @@ public class InputManager : MonoBehaviour
 
     void OnDisable()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         onFoot.Disable();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -39,12 +50,22 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         Vector2 moveInput = onFoot.Movement.ReadValue<Vector2>();
-        motor.ProcessMove(moveInput);
+        MoveInput?.Invoke(moveInput);
     }
 
     void LateUpdate()
     {
-        look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        LookInput?.Invoke(onFoot.Look.ReadValue<Vector2>());
     }
 }

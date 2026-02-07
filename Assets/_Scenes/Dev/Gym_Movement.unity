@@ -432,6 +432,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4430513859516290, guid: b3a21033f5e25ef47a403070d1d96983, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 95270914350943908, guid: b3a21033f5e25ef47a403070d1d96983, type: 3}
       propertyPath: m_Controller
       value: 
@@ -555,32 +559,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540340128}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &989752369 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5594272041388775602, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
-  m_PrefabInstance: {fileID: 1256325424}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &989752373 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9109624478033858940, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
-  m_PrefabInstance: {fileID: 1256325424}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &989752374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989752369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792355615bb888c4bb9a29a5a5bcd70f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  interactRange: 3
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!1 &1012920578
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9009963ab6969946803fd758d8e2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBox
+  throwForce: 10
+  pickUpRange: 3
 --- !u!54 &1069323654
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -916,7 +896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9109624478033858940, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.895
+      value: 0.677
       objectReference: {fileID: 0}
     - target: {fileID: 9109624478033858940, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -928,13 +908,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9014994807911421632, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 498494433}
-    - targetCorrespondingSourceObject: {fileID: 9109624478033858940, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1884599584}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5594272041388775602, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 989752374}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de695a304a7d47446b6ec71b8f21d75c, type: 3}
 --- !u!1 &1275411582
 GameObject:
@@ -1201,6 +1175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9009963ab6969946803fd758d8e2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBox
+  throwForce: 10
+  pickUpRange: 3
 --- !u!1 &1394815287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,37 +1455,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -25, y: 0, z: 0}
---- !u!1 &1884599583
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1884599584}
-  m_Layer: 0
-  m_Name: HoldPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1884599584
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884599583}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 1.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 989752373}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1953237599
 GameObject:
   m_ObjectHideFlags: 0

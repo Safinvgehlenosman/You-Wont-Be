@@ -4,6 +4,7 @@ public class PlayerMotor : MonoBehaviour
 {
     private CharacterController controller;
     private Vector3 playerVelocity;
+    private InputManager inputManager;
     public float speed = 5f;
     public float gravity = -9.8f;
     public bool isGrounded;
@@ -18,10 +19,36 @@ public class PlayerMotor : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        inputManager = GetComponent<InputManager>();
         
         if (anim == null)
         {
             anim = GetComponentInChildren<Animator>();
+        }
+    }
+
+    void OnEnable()
+    {
+        if (inputManager == null)
+        {
+            inputManager = GetComponent<InputManager>();
+        }
+
+        if (inputManager != null)
+        {
+            inputManager.MoveInput += ProcessMove;
+            inputManager.JumpPressed += Jump;
+            inputManager.ToggleFlyPressed += ToggleFly;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (inputManager != null)
+        {
+            inputManager.MoveInput -= ProcessMove;
+            inputManager.JumpPressed -= Jump;
+            inputManager.ToggleFlyPressed -= ToggleFly;
         }
     }
 
@@ -58,7 +85,7 @@ public class PlayerMotor : MonoBehaviour
         {
             Transform camTransform = GetComponentInChildren<Camera>().transform;
             Vector3 flyDir = (camTransform.forward * moveDirection.z) + (camTransform.right * moveDirection.x);
-            transform.position += flyDir * (speed * 2f) * Time.deltaTime;
+            controller.Move(flyDir * (speed * 2f) * Time.deltaTime);
             return; 
         }
 
